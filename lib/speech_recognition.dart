@@ -9,7 +9,7 @@ typedef void StringResultHandler(String text);
 /// the channel to control the speech recognition
 class SpeechRecognition {
   static const MethodChannel _channel =
-      const MethodChannel('speech_recognition');
+  const MethodChannel('speech_recognition');
 
   static final SpeechRecognition _speech = new SpeechRecognition._internal();
 
@@ -27,7 +27,7 @@ class SpeechRecognition {
   VoidCallback recognitionStartedHandler;
 
   StringResultHandler recognitionCompleteHandler;
-  
+
   VoidCallback errorHandler;
 
   /// ask for speech  recognizer permission
@@ -39,7 +39,7 @@ class SpeechRecognition {
 
   /// cancel speech
   Future cancel() => _channel.invokeMethod("speech.cancel");
-  
+
   /// stop listening
   Future stop() => _channel.invokeMethod("speech.stop");
 
@@ -60,6 +60,7 @@ class SpeechRecognition {
         break;
       case "speech.onRecognitionComplete":
         recognitionCompleteHandler(call.arguments);
+        recognitionResultHandler(call.arguments);
         break;
       case "speech.onError":
         errorHandler();
@@ -87,6 +88,6 @@ class SpeechRecognition {
 
   void setCurrentLocaleHandler(StringResultHandler handler) =>
       currentLocaleHandler = handler;
-  
+
   void setErrorHandler(VoidCallback handler) => errorHandler = handler;
 }
